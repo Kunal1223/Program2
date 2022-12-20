@@ -1,0 +1,108 @@
+Q2. Implementation of stack using linked list. Design and implement a stack using [linked list] implementation and demonstrate its working with necessary inputs.
+Display the appropriate message in case of exceptions.
+
+#include <stdio.h>
+#include <stdlib.h> //adding the header file 
+
+void push();   
+void pop();        //define the function for push,pop and show action 
+void display();
+
+struct node
+{
+    int val;       
+    struct node *next;
+};
+
+struct node *head;
+void push()         //implementation of the push function 
+{
+    int val;
+    struct node *ptr = (struct node *)malloc(sizeof(struct node));
+
+    if (ptr == NULL)   //check the condtion for the ptr
+    {
+        printf("Not able to push the element");
+    }
+    else
+    {
+        printf("Enter the value \n");
+        scanf("%d", &val);
+
+        if (head == NULL)   //check the condtion 
+        {
+            ptr->val = val;   
+            ptr->next = NULL;    //declare the new value of "next"
+            head = ptr;          //declare the new value of "head"
+        }
+        else
+        {
+            ptr->val = val;
+            ptr->next = head;      //declare the new value of "next"
+            head = ptr;             //declare the new value of "head"
+        }
+        printf("Item pushed\n");
+    }
+}
+void pop()             //implementation of the push function 
+{
+    int item;
+    struct node *ptr;
+    if (head == NULL)      //check the condtion 
+    {
+        printf("Underflow \n");
+    }
+    else
+    {
+        item = head->val;
+        ptr = head;
+        head = head->next;
+        free(ptr);
+        printf("Item popped %d \n", item);
+    }
+}
+void display()            //implementation of the display function 
+{
+    int i;
+    struct node *ptr;
+    ptr = head; 
+    if (ptr == NULL)        //check the condtion 
+    {
+        printf("Struct is empty \n");
+    }
+    else
+    {
+        printf("Printing stack element \n");
+        while (ptr != NULL)    //intialize the while loop 
+        {
+            printf("%d\t", ptr->val);
+            printf("\n");
+            ptr = ptr->next; 
+        }
+    }
+}
+int main(){
+    int choice ;
+    while(1){          //intialize while loop 
+        printf("Select the operation \n");
+        printf("1.push\n 2.pop\n 3.display\n 4.exit");
+        scanf("%d",&choice);
+
+        switch(choice)      // intialize the switch case
+        {
+            case 1:push();
+            break ;
+
+            case 2:pop();
+            break;
+
+            case 3:display();
+            break;
+
+            case 4: exit(0);
+
+            default:printf("Invalid choice \n");    //set the default value
+
+        }
+    }
+}
